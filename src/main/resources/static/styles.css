@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('istockphoto-1836401327-1024x1024-transformed.jpeg') no-repeat center center fixed; /* Add your background image */
+    background-size: cover;
+    margin: 0;
+    height: 100vh;
+
+}
+
+.container {
+    max-width: 400px;
+    margin:auto;
+    margin-top:50px;
+    padding: 20px;
+    background-color: rgba(255, 255, 241, 0.5); /* White background with transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(0px); /* Blurs the background behind the container */
+}
+
+h2 {
+    color: #333;
+}
+
+label {
+    display: block;
+    margin: 5px 0 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 95%;
+    padding: 10px;
+
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+p {
+    text-align: center;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

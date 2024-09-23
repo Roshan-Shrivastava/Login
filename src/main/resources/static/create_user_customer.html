@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Customer User</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h2>Create Customer User</h2>
+    <form id="createCustomerForm">
+        <label for="customerUsername">Username:</label>
+        <input type="text" id="customerUsername" required><br><br>
+        <label for="customerPassword">Password:</label>
+        <input type="password" id="customerPassword" required><br><br>
+        <button type="submit">Create User</button>
+    </form>
+    <p>Already have an account? <a href="customer_login.html">Customer Login</a></p>
+</div>
+
+<script>
+    document.getElementById("createCustomerForm").onsubmit = function(event) {
+        event.preventDefault();
+        const username = document.getElementById("customerUsername").value;
+        const password = document.getElementById("customerPassword").value;
+
+        fetch(`/login/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password, custType: 'Customer' }),
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+        })
+        .catch(error => console.error('Error:', error));
+    };
+</script>
+</body>
+</html>
