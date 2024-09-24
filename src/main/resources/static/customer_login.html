@@ -8,32 +8,50 @@
 </head>
 <body>
 <div class="container">
-<h2 style="color:White;">Customer Login</h2>
-<form id="customerLoginForm">
-    <label for="customerUsername" style="color:white;">Username:</label>
-    <input type="text" id="customerUsername" required><br><br>
-    <label for="customerPassword" style="color:white;">Password:</label>
-    <input type="password" id="customerPassword" required><br><br>
-    <button type="submit" style="color:white;">Login</button>
-</form>
+    <h2>Customer Login</h2>
+    <form id="customerLoginForm">
+        <label for="customerUsername">Username:</label>
+        <input type="text" id="customerUsername" required><br><br>
+        <label for="customerPassword">Password:</label>
+        <input type="password" id="customerPassword" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <p><a href="#" id="customerForgotPassword">Forgot Password?</a></p>
+    <p>Don't have an account? <a href="create_user_customer.html">Create Customer User</a></p>
 </div>
-<p>Don't have an account ? <a href="create_user_customer.html" style="color:white;">Create Customer User</a></p>
-<p>Admin? <a href="login.html" style="color:white;">Admin Login</a></p>
 
 <script>
     document.getElementById("customerLoginForm").onsubmit = function(event) {
         event.preventDefault();
         const username = document.getElementById("customerUsername").value;
         const password = document.getElementById("customerPassword").value;
-        console.log(username,password);
+
         fetch(`/login/customer/${username}/${password}`)
             .then(response => response.text())
             .then(data => {
                 alert(data);
                 if (data === "Login Successfully") {
-                    window.location.href = "customer_dashboard.html"; // Redirect to admin dashboard
+                    window.location.href = "customer_dashboard.html"; // Redirect to customer dashboard
                 }
             });
+    };
+
+    // Handle forgot password for customer
+    document.getElementById("customerForgotPassword").onclick = function(event) {
+        event.preventDefault();
+        const username = document.getElementById("customerUsername").value;
+        if (!username) {
+            alert("Please enter your username first!");
+            return;
+        }
+
+        fetch(`/login/forgetPassword/${username}`)
+            .then(response => response.text())
+            .then(data => {
+                alert(data ? "Password reset instructions sent!" : "Username not found.");
+            })
+            .catch(error => console.error('Error:', error));
     };
 </script>
 </body>

@@ -16,19 +16,10 @@
         <input type="password" id="adminPassword" required><br><br>
         <button type="submit">Admin Login</button>
     </form>
+
+    <p><a href="forgot_password.html" >Forgot Password?</a></p>
     <p>Don't have an account? <a href="create_user_admin.html">Create Admin User</a></p>
     <p>Customer? <a href="customer_login.html">Customer Login</a></p>
-
-<!--    <h2>Customer Login</h2>-->
-<!--    <form id="customerLoginForm">-->
-<!--        <label for="customerUsername">Username:</label>-->
-<!--        <input type="text" id="customerUsername" required><br><br>-->
-<!--        <label for="customerPassword">Password:</label>-->
-<!--        <input type="password" id="customerPassword" required><br><br>-->
-<!--        <button type="submit">Customer Login</button>-->
-<!--    </form>-->
-<!--    <p>Don't have an account? <a href="create_user_customer.html">Create Customer User</a></p>-->
-    <p>Admin? <a href="login.html">Admin Login</a></p>
 </div>
 
 <script>
@@ -48,22 +39,22 @@
             .catch(error => console.error('Error:', error));
     };
 
-    document.getElementById("customerLoginForm").onsubmit = function(event) {
+    // Handle forgot password for admin
+    document.getElementById("adminForgotPassword").onclick = function(event) {
         event.preventDefault();
-        const username = document.getElementById("customerUsername").value;
-        const password = document.getElementById("customerPassword").value;
+        const username = document.getElementById("adminUsername").value;
+        if (!username) {
+            alert("Please enter your username first!");
+            return;
+        }
 
-        fetch(`/login/customer/${username}/${password}`)
+        fetch(`/login/forgetPassword/${username}`)
             .then(response => response.text())
             .then(data => {
-                alert(data);
-                if (data === "Login Successfully") {
-                    window.location.href = "customer_dashboard.html"; // Redirect to customer dashboard
-                }
+                alert(data ? "Password reset instructions sent!" : "Username not found.");
             })
             .catch(error => console.error('Error:', error));
     };
 </script>
-
 </body>
 </html>

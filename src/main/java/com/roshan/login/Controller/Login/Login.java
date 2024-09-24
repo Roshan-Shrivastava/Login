@@ -15,5 +15,7 @@ public class Login {
     private String username;
     private String password;
     private String custType;
+    private String newPassword;
+    private String reEnterPassword;
 
 }
