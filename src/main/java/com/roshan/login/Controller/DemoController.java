@@ -29,14 +29,17 @@ public class DemoController {
     public String readLoginStatus(@PathVariable String username,@PathVariable String password){
         return loginService.readLoginStatus(username, password,"Admin");
     }
+
     @GetMapping("login/customer/{username}/{password}")
     public String readCustomerLogin(@PathVariable String username,@PathVariable String password){
         return loginService.readLoginStatus(username, password, "Customer");
     }
     @PostMapping("login/create")
     public String createUser(@RequestBody Login login){
+
         return loginService.createUserDetail(login);
     }
+
     @GetMapping("login/forgetPassword/{username}")
     public boolean modifyPassword(@PathVariable String username){
         log=loginRepository.findByUsername(username);

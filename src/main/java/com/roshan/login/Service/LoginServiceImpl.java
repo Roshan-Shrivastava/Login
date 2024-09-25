@@ -22,6 +22,7 @@ public class LoginServiceImpl implements LoginService {
     public String readLoginStatus(String username, String password,String userType) {
         // Fetch the user by username using the custom method
 //        Optional<LoginEntity> logUser = loginRepository.findByUsername(username);
+        password= "!@#$%^&*()_+"+String.valueOf(password.hashCode())+"!@#$%^&*()_+";
         Optional<LoginEntity> logUser=loginRepository.findByCustTypeAndUsernameAndPassword(userType,username,password);
             if (logUser.isPresent()  ) {
                     return "Login Successfully";
@@ -35,6 +36,8 @@ public class LoginServiceImpl implements LoginService {
         LoginEntity loginEntity=new LoginEntity();
         Optional<LoginEntity> logUser=loginRepository.findByUsername(login.getUsername());
         if(!logUser.isPresent()){
+            String pwd= "!@#$%^&*()_+"+String.valueOf(login.getPassword().hashCode())+"!@#$%^&*()_+";
+            login.setPassword(pwd);
             BeanUtils.copyProperties(login,loginEntity);
             loginRepository.save(loginEntity);
             return "Saved SuccessFully";
@@ -57,10 +60,9 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String changePassword(int id ,String newPassword,String reEnterPassword){
         try{
-
-
             if(newPassword.equalsIgnoreCase(reEnterPassword)){
                 LoginEntity log=loginRepository.findById(Long.valueOf(id)).get();
+                   newPassword= "!@#$%^&*()_+"+String.valueOf(newPassword.hashCode())+"!@#$%^&*()_+";
 
                 if(!log.getPassword().equalsIgnoreCase(newPassword)){
                     log.setPassword(newPassword);
